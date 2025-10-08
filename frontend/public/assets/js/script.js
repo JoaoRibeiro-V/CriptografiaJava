@@ -3,6 +3,11 @@ const login = document.querySelector(".login");
 const loginForm = login.querySelector(".login__form");
 const loginInput = login.querySelector(".login__input");
 
+// security code elements
+const securityCodeSection = document.querySelector(".security-code");
+const securityCodeForm = securityCodeSection.querySelector(".security-code__form");
+const securityCodeInput = securityCodeSection.querySelector(".security-code__input");
+
 // chat elements
 const chat = document.querySelector(".chat");
 const chatForm = chat.querySelector(".chat__form");
@@ -94,10 +99,15 @@ const handleLogin = (event) => {
     user.name = loginInput.value;
     user.color = getRandomColor();
 
+    // Oculta a tela de login e exibe a tela de código de segurança
     login.style.display = "none";
-    chat.style.display = "flex";
+    securityCodeSection.style.display = "block";
+};
 
-    connectWebSocket();
+const handleSecurityCode = (event) => {
+    event.preventDefault();
+    securityCodeSection.style.display = "none";
+    chat.style.display = "flex";
 };
 
 // ---------------------- SEND MESSAGE ----------------------
@@ -118,4 +128,5 @@ const sendMessage = (event) => {
 
 // ---------------------- EVENT LISTENERS ----------------------
 loginForm.addEventListener("submit", handleLogin);
+securityCodeForm.addEventListener("submit", handleSecurityCode);
 chatForm.addEventListener("submit", sendMessage);

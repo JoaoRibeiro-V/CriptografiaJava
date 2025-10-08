@@ -20,25 +20,35 @@
             <h2>Login</h2>
             <form class="login__form">
                 <input type="text" class="login__input" placeholder="Seu nome" required />
-                <button type="submit" class="login__button">Entrar</button>
+                <button type="submit" class="login__button">Continuar</button>
+            </form>
+        </section>
+
+        <section class="security-code">
+            <h2>Senha de Criptografia</h2>
+            <form class="security-code__form">
+                <div class="security-code__inputs">
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                </div>
+                <button type="submit" class="security-code__button">Continuar</button>
             </form>
         </section>
 
         <section class="chat">
             <section class="chat__messages">
-                <!-- <div class="message--self">Hello, World!</div>
-
-                <div class="message--other">
-                    <span class="message--sender">Manual do Dev</span>
-                    Olá, Mundo!
-                </div> -->
             </section>
 
             <form class="chat__form">
                 <input type="text" class="chat__input" placeholder="Digite uma mensagem" required />
                 <button type="submit" class="chat__button">
-                    <span class="material-symbols-outlined">Enviar</span>
+                    <span class="material-symbols-outlined">arrow_forward</span>
                 </button>
+
             </form>
         </section>
 
