@@ -217,3 +217,92 @@ body {
 .security-code__button:hover {
     background-color: #fff;
 }
+
+.lock-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    display: none; /* Inicialmente escondido */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lock-popup-content {
+    width: 100%;
+    max-width: 330px;
+    background-color: #212121;
+    border-radius: 5px;
+    padding: 20px;
+    color: #f2f2f2;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.lock-popup-content h3 {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.lock-popup-content .code-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.lock-popup-content .code-input:focus {
+    outline: 2px solid #f2f2f2;
+}
+
+.lock-popup-content button {
+    margin: 10px 5px 0;
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.lock-popup-content #lockCodeConfirm {
+    background-color: #39d811;
+    color: white;
+}
+
+.lock-popup-content #lockCodeConfirm:hover {
+    background-color: #39d811;
+}
+
+.lock-popup-content #lockCodeCancel {
+    background-color: #f44336;
+    color: white;
+}
+
+.lock-popup-content #lockCodeError {
+    color: #f44336;
+    margin-top: 10px;
+    display: none;
+}
+
+.message--other {
+    position: relative;
+    background-color: #333;
+    color: #f2f2f2;
+    border-radius: 0 10px 10px 10px;
+    align-self: flex-start;
+    padding: 15px 40px 15px 15px;
+}
+
+.lock-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    user-select: none;
+}

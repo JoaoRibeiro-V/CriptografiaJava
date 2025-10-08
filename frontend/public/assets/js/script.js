@@ -23,6 +23,16 @@ const user = { id: "", name: "", color: "" };
 let websocket;
 let heartbeatInterval;
 
+// -- ELEMENTS PARA O POPUP DO CADEADO --
+const lockPopup = document.getElementById("lockPopup");
+const lockCodeConfirm = document.getElementById("lockCodeConfirm");
+const lockCodeCancel = document.getElementById("lockCodeCancel");
+const lockCodeError = document.getElementById("lockCodeError");
+const lockCodeInputs = lockPopup.querySelectorAll(".code-input");
+
+// Variável para armazenar a mensagem bloqueada atual (se precisar desbloquear depois)
+let lockedMessageDiv = null;
+
 // ---------------------- MESSAGE ELEMENTS ----------------------
 const createMessageSelfElement = (content) => {
     const div = document.createElement("div");
@@ -35,12 +45,41 @@ const createMessageOtherElement = (content, sender, senderColor) => {
     const div = document.createElement("div");
     const span = document.createElement("span");
     div.classList.add("message--other");
+
     span.classList.add("message--sender");
     span.style.color = senderColor;
     span.innerHTML = sender;
+
+    const lock = document.createElement("span");
+    lock.classList.add("lock-icon");
+    lock.innerHTML = " 🔒";
+    lock.title = "Mensagem protegida";
+    lock.style.cursor = "pointer";
+
+    // Evento para abrir popup
+    lock.addEventListener("click", () => {
+        lockedMessageDiv = div;
+        lockPopup.style.display = "flex";
+
+        const firstInput = lockPopup.querySelector(".code-input");
+        if (firstInput) firstInput.focus();
+
+        resetLockPopup();
+    });
+
+    span.appendChild(lock);
     div.appendChild(span);
-    div.innerHTML += content;
+
+    const contentNode = document.createTextNode(content);
+    div.appendChild(contentNode);
+
     return div;
+};
+
+const resetLockPopup = () => {
+    lockCodeError.style.display = "none";
+    lockCodeInputs.forEach(input => input.value = "");
+    lockCodeInputs[0].focus();
 };
 
 const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
@@ -126,7 +165,41 @@ const sendMessage = (event) => {
     chatInput.value = "";
 };
 
+// ---------------------- POPUP LOCK BUTTONS ----------------------
+
+// Botão cancelar fecha o popup
+lockCodeCancel.addEventListener("click", () => {
+    resetLockPopup();
+    lockPopup.style.display = "none";
+});
+
+// Botão confirmar valida o código
+lockCodeConfirm.addEventListener("click", (e) => {
+    e.preventDefault();
+    const code = Array.from(lockCodeInputs).map(input => input.value).join("");
+
+    const correctCode = "123456"; // Defina seu código aqui
+
+    if (code === correctCode) {
+        alert("Código correto! Mensagem desbloqueada.");
+
+        // Exemplo: Remove o cadeado da mensagem para desbloquear visualmente
+        if (lockedMessageDiv) {
+            const lockIcon = lockedMessageDiv.querySelector(".lock-icon");
+            if (lockIcon) lockIcon.remove();
+        }
+
+        resetLockPopup();
+        lockPopup.style.display = "none";
+        lockedMessageDiv = null;
+    } else {
+        lockCodeError.style.display = "block";
+    }
+});
+
 // ---------------------- EVENT LISTENERS ----------------------
+
+connectWebSocket();
 loginForm.addEventListener("submit", handleLogin);
 securityCodeForm.addEventListener("submit", handleSecurityCode);
 chatForm.addEventListener("submit", sendMessage);

@@ -52,6 +52,23 @@
             </form>
         </section>
 
+        <div id="lockPopup" class="lock-popup" style="display:none;">
+            <div class="lock-popup-content">
+                <h3>Senha para Desbloquear</h3>
+                <div class="code-inputs">
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                    <input type="text" maxlength="1" class="code-input" inputmode="numeric" />
+                </div>
+                <button id="lockCodeConfirm">Confirmar</button>
+                <button id="lockCodeCancel">Cancelar</button>
+                <p id="lockCodeError" style="color:red; display:none;">Código incorreto!</p>
+            </div>
+        </div>
+
     </section>
 
     <script src="assets/js/script.js"></script>
