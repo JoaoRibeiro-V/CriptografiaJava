@@ -51,9 +51,12 @@ You should see:
 ✅ Chat server running on ws://localhost:8080/ws
 <sub>(Leave this terminal open while testing the frontend.)</sub>
 
+```
+
 ### 2️⃣ Start the frontend (HTML/JS)
 
 Open a new terminal in the frontend/ folder:
+```
 
 cd frontend
 
@@ -67,11 +70,14 @@ Start the Node development server:
 
 npm start
 
+```
 
 The terminal will show a URL like:
+```
 
   Local:   http://localhost:3000/
   Network: https://abcdef1234-3000.preview.app.github.dev/
+```
 
 ### Open the Public URL to access the chat from any device.
 
