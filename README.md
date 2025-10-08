@@ -28,7 +28,7 @@ chat-app/
 
 - **Node.js** (v18+) for frontend
 - **Java 17+** and **Maven** for backend
-- GitHub Codespaces is optional but recommended for easy hosting/testing.
+- GitHub Codespaces
 
 ---
 
