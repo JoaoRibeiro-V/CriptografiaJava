@@ -128,8 +128,6 @@ public class ChatEndpoint {
     @OnOpen
     public void onOpen(Session session) throws IOException {
         sessions.add(session);
-        System.out.println("New connection: " + session.getId());
-
         // (user reconnect)
         if (persistentUserIds.containsKey(session.getId())) {
             String userId = persistentUserIds.get(session.getId());
