@@ -62,7 +62,6 @@ let user = {
     password: ""                       // can persist if you want
 };
 
-// If you want name/color/password to persist across refreshes, use localStorage
 user.name = localStorage.getItem("chat_user_name") || "";
 user.color = localStorage.getItem("chat_user_color") || "";
 user.password = localStorage.getItem("chat_user_password") || "";
@@ -145,7 +144,6 @@ function connectWebSocket() {
         console.log("✅ Connected");
         console.log(lastMessageId);
         if (user.password && user.id) sendPasswordWhenOpen();
-        // send lastMessageId to request only new messages
         if (lastMessageId) {
             return;
         }
@@ -243,8 +241,6 @@ securityCodeInputs.forEach((input, idx) => {
             securityCodeInputs[idx - 1].focus();
         }
     });
-
-    // Optional: select all on focus for easy editing
     input.addEventListener("focus", () => input.select());
 });
 
@@ -291,8 +287,6 @@ lockCodeInputs.forEach((input, idx) => {
             lockCodeInputs[idx - 1].focus();
         }
     });
-
-    // Optional: select all on focus for easy editing
     input.addEventListener("focus", () => input.select());
 });
 
