@@ -124,7 +124,7 @@ function resetLockPopup() {
     lockCodeError.style.display = "none";
     lockCodeInputs.forEach(i => i.value = "");
     lockCodeInputs[0].focus();
-    
+
 }
 
 // ---------------------- UTILITIES ----------------------
@@ -227,25 +227,45 @@ function sendPasswordWhenOpen() {
 }
 
 securityCodeInputs.forEach((input, idx) => {
-    // Allow only numbers and move focus
+    // Allow only one digit per box, convert spaces to 0, and auto-focus next
     input.addEventListener("input", () => {
-        input.value = input.value.replace(/[^0-9]/g, ""); // numbers only
-        if (input.value && idx < securityCodeInputs.length - 1) {
+        input.value = input.value.replace(/[^0-9]/g, ""); // only digits
+
+        // Convert blanks/spaces to 0
+        if (input.value.trim() === "") {
+            input.value = "0";
+        }
+
+        // Ensure only one character
+        if (input.value.length > 1) {
+            input.value = input.value.charAt(0);
+        }
+
+        // Auto-focus next input
+        if (idx < securityCodeInputs.length - 1) {
             securityCodeInputs[idx + 1].focus();
         }
     });
 
-    // Backspace moves to previous input
+    // Move to previous input on Backspace
     input.addEventListener("keydown", e => {
         if (e.key === "Backspace" && !input.value && idx > 0) {
             securityCodeInputs[idx - 1].focus();
         }
     });
+
+    // Auto-select text when focused
     input.addEventListener("focus", () => input.select());
 });
 
+
 securityCodeForm.addEventListener("submit", e => {
     e.preventDefault();
+    securityCodeInputs.forEach(input => {
+        if (input.value.trim() === "") {
+            input.value = "0";
+        }
+    });
     user.password = Array.from(securityCodeInputs).map(i => i.value).join("");
     localStorage.setItem("chat_user_password", user.password);
     securityCodeSection.style.display = "none";
@@ -273,20 +293,34 @@ chatForm.addEventListener("submit", e => {
 // ---------------------- LOCK POPUP ----------------------
 
 lockCodeInputs.forEach((input, idx) => {
-    // Allow only numbers and move focus
+    // Allow only one digit per box, convert spaces to 0, and auto-focus next
     input.addEventListener("input", () => {
-        input.value = input.value.replace(/[^0-9]/g, ""); // numbers only
-        if (input.value && idx < lockCodeInputs.length - 1) {
+        input.value = input.value.replace(/[^0-9]/g, ""); // only digits
+
+        // Convert blanks/spaces to 0
+        if (input.value.trim() === "") {
+            input.value = "0";
+        }
+
+        // Ensure only one character
+        if (input.value.length > 1) {
+            input.value = input.value.charAt(0);
+        }
+
+        // Auto-focus next input
+        if (idx < lockCodeInputs.length - 1) {
             lockCodeInputs[idx + 1].focus();
         }
     });
 
-    // Backspace moves to previous input
+    // Move to previous input on Backspace
     input.addEventListener("keydown", e => {
         if (e.key === "Backspace" && !input.value && idx > 0) {
             lockCodeInputs[idx - 1].focus();
         }
     });
+
+    // Auto-select text when focused
     input.addEventListener("focus", () => input.select());
 });
 
@@ -297,6 +331,11 @@ lockCodeCancel.addEventListener("click", () => {
 
 lockCodeConfirm.addEventListener("click", e => {
     e.preventDefault();
+    securityCodeInputs.forEach(input => {
+        if (input.value.trim() === "") {
+            input.value = "0";
+        }
+    });
     const guess = Array.from(lockCodeInputs).map(i => i.value).join("");
     if (!lockedMessageDiv) return;
 
