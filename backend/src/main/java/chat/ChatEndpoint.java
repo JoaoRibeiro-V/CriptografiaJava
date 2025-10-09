@@ -2,7 +2,12 @@ package chat;
 
 import java.io.IOException;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.Gson;
@@ -26,7 +31,6 @@ public class ChatEndpoint {
     private static final Map<Session, String> sessionToUser = new ConcurrentHashMap<>();
     private static final Map<String, String> persistentUserIds = new ConcurrentHashMap<>(); // sessionId -> userId
     private static final Map<Session, Integer> lastSeenIndex = new ConcurrentHashMap<>();
-    // instead of: Map<Session, Integer> lastSeenIndex
     private static final Map<String, Integer> lastSeenIndexByUser = new ConcurrentHashMap<>();
 
     private static class ChatMessage {
@@ -114,7 +118,7 @@ public class ChatEndpoint {
                     userPasswords.put(userId, obj.get("password").getAsString());
                 }
 
-                // send only new messages
+                // get new messages for first login
                 int lastIndex = obj.has("lastMessageId")
                         ? getMessageIndexById(obj.get("lastMessageId").getAsString())
                         : lastSeenIndexByUser.getOrDefault(userId, 0);
